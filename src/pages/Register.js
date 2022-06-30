@@ -13,8 +13,6 @@ export default function Register() {
         (result) => {
           setIsLoaded(true);
           setItems(result);
-
-          console.log(result);
         },
 
         (error) => {
@@ -24,20 +22,33 @@ export default function Register() {
       );
   }, []);
 
-  //   let x = fetch("http://localhost:4000/")
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       //   console.log(result);
-  //       return result;
-  //     });
+  const [lerror, lsetError] = useState(null);
+  const [lisLoaded, lsetIsLoaded] = useState(false);
+  const [litems, lsetItems] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          lsetIsLoaded(true);
+          lsetItems(result);
+        },
+
+        (error) => {
+          lsetIsLoaded(true);
+          lsetError(error);
+        }
+      );
+  }, []);
 
   return (
     <div>
       <h1>Here's a random cat fact</h1>
       <p>{items.fact}</p>
       <br />
-      {/* <p>The above sentence contains {items.length} characters.</p>
-      <p>{x.madeby}</p> */}
+      <p>The above sentence contains {items.length} characters.</p>
+      <p>{litems.madeby}</p>
     </div>
   );
 }
